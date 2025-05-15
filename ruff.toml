@@ -1,0 +1,78 @@
+target-version = "py311"
+builtins = [
+    # Players:
+    "Pa",
+    "Pb",
+    "Pc",
+    "Pd",
+    "Pe",
+    "Pf",
+    "Pg",
+    "Ph",
+    "Pi",
+    "Pj",
+    "Pk",
+    "Pl",
+    "Pm",
+    "Pn",
+    "Po",
+    "Pp",
+    "Pq",
+    "Pr",
+    "Ps",
+    "Pt",
+    "Pu",
+    "Pv",
+    "Pw",
+    "Px",
+    "Py",
+    "Pz",
+    "PA",
+    "PB",
+    "PC",
+    "PD",
+    "PE",
+    "PF",
+    "PG",
+    "PH",
+    "PI",
+    "PJ",
+    "PK",
+    "PL",
+    "PM",
+    "PN",
+    "PO",
+    "PP",
+    "PQ",
+    "PR",
+    "PS",
+    "PT",
+    "PU",
+    "PV",
+    "PW",
+    "PX",
+    "PY",
+    "PZ",
+    "clock",   # access and change tempo
+    "silence", # gentle shutdown
+    "panic",   # hard stop
+    "swim",
+    "again",
+    # Sardine patterns senders
+    "d",  # SuperDirt - samples and synthesizers (Player)
+    "D",  # SuperDirt - samples and synthesizers (@swim)
+    "n",  # MIDI notes (Player)
+    "N",  # MIDI notes (@swim)
+    "cc", # MIDI control messages (Player)
+    "CC", # MIDI control messages (@swim)
+    "pc", # MIDI program changes (Player)
+    "PC", # MIDI program changes (@swim)
+    "sy", # MIDI sysex message (Player)
+    "SY", # MIDI sysex message (@swim)
+    # Ziffers patterns senders
+    "zd", # Ziffers SuperDirt - samples/synths with Ziffers patterns (Player)
+    "ZD", # Ziffers SuperDirt - samples/synths with Ziffers patterns (@swim)
+    "zn", # Ziffers MIDI notes with Ziffers patterns (Player)
+    "ZN", # Ziffers MIDI notes with Ziffers patterns (@swim)
+]
+line-length = 100

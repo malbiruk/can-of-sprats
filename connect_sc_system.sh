@@ -18,7 +18,7 @@ if [[ "$1" == "-d" ]]; then
         pw-link -d "SuperCollider:out_$LEFT" "$LEFT_PORT" 2>/dev/null
         pw-link -d "SuperCollider:out_$RIGHT" "$RIGHT_PORT" 2>/dev/null
 
-        echo "Disconnected SC outputs $LEFT/$RIGHT from system playback"
+        # echo "Disconnected SC outputs $LEFT/$RIGHT from system playback"
     done
 
     echo "All SuperCollider outputs disconnected from system playback"
@@ -36,7 +36,7 @@ else
         pw-link "SuperCollider:out_$LEFT" "$LEFT_PORT" 2>/dev/null
         pw-link "SuperCollider:out_$RIGHT" "$RIGHT_PORT" 2>/dev/null
 
-        echo "Connected SC outputs $LEFT/$RIGHT to system playback"
+        # echo "Connected SC outputs $LEFT/$RIGHT to system playback"
     done
 
     echo "All SuperCollider outputs connected to system playback"

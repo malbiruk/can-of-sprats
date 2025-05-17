@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script connects 12 SuperCollider stereo-outputs to REAPER inputs using PipeWire.
+
 
 # Wait for SuperCollider to fully start
 sleep 5

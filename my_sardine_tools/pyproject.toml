@@ -1,0 +1,6 @@
+[project]
+name = "my-sardine-tools"
+description = "A collection of tools for working with sardine."
+version = "0.1.0"
+requires-python = "==3.11"
+dependencies = ["sardine-system"]

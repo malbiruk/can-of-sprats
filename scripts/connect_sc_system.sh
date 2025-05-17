@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script connects 12 SuperCollider stereo-outputs to 2 system outputs.
 
 # Define output ports
 LEFT_PORT="alsa_output.pci-0000_03_00.6.analog-stereo:playback_FL"

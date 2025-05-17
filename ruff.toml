@@ -1,6 +1,7 @@
 target-version = "py311"
 builtins = [
     # Players:
+    "Player",
     "Pa",
     "Pb",
     "Pc",
@@ -29,7 +30,6 @@ builtins = [
     "Pz",
     "PA",
     "PB",
-    "PC",
     "PD",
     "PE",
     "PF",
@@ -53,11 +53,15 @@ builtins = [
     "PX",
     "PY",
     "PZ",
-    "clock",   # access and change tempo
+    # sardine stuff
+    "clock",   # access and change tempo, phase neat, bar
+    "bowl",    # pause/resume/stop clock
     "silence", # gentle shutdown
     "panic",   # hard stop
     "swim",
+    "die",
     "again",
+    "V",       # Amphibian variables
     # Sardine patterns senders
     "d",  # SuperDirt - samples and synthesizers (Player)
     "D",  # SuperDirt - samples and synthesizers (@swim)
@@ -74,5 +78,23 @@ builtins = [
     "ZD", # Ziffers SuperDirt - samples/synths with Ziffers patterns (@swim)
     "zn", # Ziffers MIDI notes with Ziffers patterns (Player)
     "ZN", # Ziffers MIDI notes with Ziffers patterns (@swim)
+    "P",  # Pattern Object
+    # Vortex (TidalCycles)
+    "d1",
+    "d2",
+    "d3",
+    "d4",
+    "d5",
+    "d6",
+    "d7",
+    "d8",
+    "d9",
+    "hush",
+    "tidal",
+    "s",
 ]
 line-length = 100
+
+[lint.per-file-ignores]
+# Ignore F401 (imported but unused) in init files
+"__init__.py" = ["F401"]

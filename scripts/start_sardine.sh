@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script starts SuperCollider with SuperDirt and then runs Sardine.
 
 DEBUG=0
 if [[ "$1" == "-d" ]] || [[ "$1" == "--debug" ]]; then
@@ -102,7 +103,7 @@ if [ $WAIT_COUNTER -ge $MAX_WAIT ]; then
 fi
 
 # Connect SuperCollider outputs to system outputs
-./connect_sc_system.sh
+# ./connect_sc_system.sh
 
 # Now start Sardine
 echo "Starting Sardine..."

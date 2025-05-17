@@ -4,7 +4,7 @@ s.reboot {
 	s.options.memSize = 8192 * 32;
 	s.options.numWireBufs = 128;
 	s.options.maxNodes = 1024 * 32;
-	s.options.numOutputBusChannels = 24;
+	s.options.numOutputBusChannels = 2;
 	s.options.numInputBusChannels = 2;
 	s.waitForBoot {
 		~dirt = SuperDirt(2, s);
@@ -12,7 +12,8 @@ s.reboot {
 		~dirt.loadSynthDefs("/home/klim/Documents/REAPER Media/sardine/synthdefs/");
 		// ~dirt.loadSoundFiles("/Users/myUserName/Dirt/samples/*");
 		s.sync;
-		~dirt.start(57120, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]);
+		// ~dirt.start(57120, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]);
+		~dirt.start(57120, 0 ! 12);
 		(
 			~d1 = ~dirt.orbits[0]; ~d2 = ~dirt.orbits[1]; ~d3 = ~dirt.orbits[2];
 			~d4 = ~dirt.orbits[3]; ~d5 = ~dirt.orbits[4]; ~d6 = ~dirt.orbits[5];

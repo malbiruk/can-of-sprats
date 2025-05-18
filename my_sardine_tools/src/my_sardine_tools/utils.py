@@ -6,7 +6,7 @@ from sardine_core.run import bowl
 from sardine_core.run import d as original_d
 
 
-def player(name: str) -> Player:
+def create_player(name: str) -> Player:
     """
     Custom function to create simple players like Pa, Pb, Pc, etc.
     without @swim decorator

@@ -61,6 +61,7 @@ builtins = [
     "swim",
     "die",
     "again",
+    "sleep",
     "V",       # Amphibian variables
     # Sardine patterns senders
     "d",  # SuperDirt - samples and synthesizers (Player)

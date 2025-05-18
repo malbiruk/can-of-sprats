@@ -11,7 +11,7 @@ mkfifo "$PIPE_FILE"
 echo "Starting Sardine with input pipe..."
 
 # More robust handling of the pipe
-tail -f "$PIPE_FILE" | scripts/start_sardine.sh
+tail -f "$PIPE_FILE" | scripts/start_sardine.sh "$@"
 
 # Clean up on exit
 trap "rm -f $PIPE_FILE" EXIT

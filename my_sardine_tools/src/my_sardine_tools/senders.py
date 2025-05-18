@@ -1,25 +1,8 @@
 from functools import wraps
 
-from sardine_core.handlers.player import Player
 from sardine_core.run import D as original_D
-from sardine_core.run import bowl
 from sardine_core.run import d as original_d
-
-
-def create_player(name: str) -> Player:
-    """
-    Custom function to create simple players like Pa, Pb, Pc, etc.
-    without @swim decorator
-    """
-    # don't create a new player if it's already being used
-    if name in [i.name for i in bowl.scheduler.runners]:
-        return next(
-            (obj for obj in bowl.handlers if hasattr(obj, "name") and obj.name == name),
-            None,
-        )
-    p = Player(name=name)
-    bowl.add_handler(p)
-    return p
+from sardine_core.run import zd
 
 
 @wraps(original_d)
@@ -54,6 +37,33 @@ def D(*args, **kwargs):
 
     # Pass through to original d
     return original_D(*args, **kwargs)
+
+
+def parse_ziff_duration(note: str) -> float | None:
+    # Basic duration mappings (in beats)
+    durations = {
+        "w": 4.0,  # whole note
+        "h": 2.0,  # half note
+        "q": 1.0,  # quarter note
+        "e": 0.5,  # eighth note
+        "s": 0.25,  # sixteenth note
+    }
+
+    if note[0] in durations:
+        duration = durations[note[0]]
+        if len(note) > 1 and note[1] == ".":
+            duration *= 1.5  # dotted note
+        return duration
+    return None
+
+
+@wraps(zd)
+def zd_mono(name, ziff, coef=0.5, **kwargs):
+    """generates sustains based on ziff pattern"""
+    notes = ziff.split()
+    durations = " ".join([str(dur * coef) for note in notes if (dur := parse_ziff_duration(note))])
+    kwargs["sustain"] = durations
+    return zd(name, ziff=ziff, **kwargs)
 
 
 # TODO: Vortex to MIDI:

@@ -27,3 +27,11 @@ def gui_loop(p=1, i=0):
     print(blip)
     print(bloop)
     again(gui_loop, p=1, i=i + 1)
+
+
+@swim
+def super_sleeping(p=2, i=0):
+    D("bd")
+    sleep(1)
+    D("cp")
+    again(super_sleeping, p=2, i=i + 1)

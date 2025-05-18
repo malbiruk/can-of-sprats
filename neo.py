@@ -20,6 +20,13 @@ def melody(p=1, i=0, amp=0.05):
     again(melody, p=dur, i=i + 1)
 
 
-ziff = "| <-3> h.1 h1 h.3 h.0 h0 q.0 q0 e3 |"
-bass_pattern = zd_mono("super808", decay=0, orbit=1, amp=0.5, ziff=ziff, shape=0.85, lpf=100)
+bass_pattern = zd_mono(
+    "super808",
+    "| <-3> h.1 h1 h.3 h.0 h0 q.0 q0 e3 |",
+    decay=0,
+    orbit=1,
+    amp=0.5,
+    shape=0.85,
+    lpf=100,
+)
 bass >> bass_pattern

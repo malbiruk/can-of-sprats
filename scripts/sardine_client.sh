@@ -42,8 +42,8 @@ if [ -n "$TEXT" ]; then
     printf '%s\r\n' "$CLEANED_TEXT" > "$PIPE_FILE"
 
     # For debugging, show what we're sending (up to first 3 lines)
-    echo "Sent to Sardine:"
-    echo "$CLEANED_TEXT" | sed 's/^/  /'
+    # echo "Sent to Sardine:"
+    # echo "$CLEANED_TEXT" | sed 's/^/  /'
     fi
     exit 0
 else

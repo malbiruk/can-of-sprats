@@ -1,8 +1,8 @@
 from functools import wraps
 
+from sardine_core.run import ZD, zd
 from sardine_core.run import D as original_D
 from sardine_core.run import d as original_d
-from sardine_core.run import zd
 
 
 @wraps(original_d)
@@ -64,6 +64,15 @@ def zd_mono(name, ziff, coef=0.5, **kwargs):
     durations = " ".join([str(dur * coef) for note in notes if (dur := parse_ziff_duration(note))])
     kwargs["sustain"] = durations
     return zd(name, ziff=ziff, **kwargs)
+
+
+@wraps(ZD)
+def ZD_mono(name, ziff, coef=0.5, **kwargs):
+    """generates sustains based on ziff pattern"""
+    notes = ziff.split()
+    durations = " ".join([str(dur * coef) for note in notes if (dur := parse_ziff_duration(note))])
+    kwargs["sustain"] = durations
+    return ZD(name, ziff=ziff, **kwargs)
 
 
 # TODO: Vortex to MIDI:

@@ -59,3 +59,9 @@ br = swim(bass)
 sr1 = swim(snare_1)
 sr2 = swim(snare_2)
 hr = swim(hh)
+
+mr.stop()
+hr.stop()
+sr2.stop()
+
+silence()

@@ -30,12 +30,16 @@ def D(*args, **kwargs):
     note_pattern = kwargs.get("n") or kwargs.get("midinote") or kwargs.get("freq")
 
     if note_pattern and isinstance(note_pattern, str) and "." in note_pattern:
-        # If first arg is a string (the most common case)
         if args:
+            # First arg is the instrument (the most common case)
             instrument = args[0]
             args = (f"{instrument} ^| [{instrument} ^| [{note_pattern}]]",) + args[1:]
+        elif "sound" in kwargs:
+            # Instrument is provided as 'sound' keyword argument
+            instrument = kwargs["sound"]
+            kwargs["sound"] = f"{instrument} ^| [{instrument} ^| [{note_pattern}]]"
 
-    # Pass through to original d
+    # Pass through to original D
     return original_D(*args, **kwargs)
 
 

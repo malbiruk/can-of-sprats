@@ -44,7 +44,6 @@ if [ -n "$TEXT" ]; then
     # For debugging, show what we're sending (up to first 3 lines)
     # echo "Sent to Sardine:"
     # echo "$CLEANED_TEXT" | sed 's/^/  /'
-    fi
     exit 0
 else
     echo "No text to send."

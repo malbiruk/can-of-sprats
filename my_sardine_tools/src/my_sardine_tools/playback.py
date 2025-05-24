@@ -1,5 +1,5 @@
 from sardine_core.handlers.player import Player
-from sardine_core.run import P, bowl, sleep, swim
+from sardine_core.run import P, bowl, sleep
 
 
 def create_player(name: str) -> Player:
@@ -55,43 +55,3 @@ def loop(*sender_configs: tuple, n_steps: int, p: None | float | str = None) -> 
         total_duration += step_duration
 
     return total_duration
-
-
-class SwimGroup:
-    """Group for managing multiple swimmers with support for variable references."""
-
-    def __init__(self, name="group"):
-        self.name = name
-        self.runners = {}  # name: runner mapping
-
-    def stop(self):
-        """Stop all swimmers in the group."""
-        for runner in self.runners.values():
-            if runner:
-                runner.stop()
-        return self
-
-    def start(self, var_func_map):
-        """
-        Start multiple swim functions and store their runners.
-        This will update the variables in the calling scope.
-
-        Args:
-            var_func_map: Dictionary mapping variable names to functions
-                         {"var_name": swim_function}
-        """
-        import inspect
-
-        caller_globals = inspect.currentframe().f_back.f_globals
-
-        for var_name, func in var_func_map.items():
-            # Start the swimmer
-            runner = swim(func)
-
-            # Store in our group
-            self.runners[var_name] = runner
-
-            # Update the global variable in the caller's scope
-            caller_globals[var_name] = runner
-
-        return self

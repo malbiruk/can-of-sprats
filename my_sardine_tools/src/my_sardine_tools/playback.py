@@ -1,5 +1,7 @@
+from collections.abc import Iterable as IterableClass
+
 from sardine_core.handlers.player import Player
-from sardine_core.run import P, bowl, sleep
+from sardine_core.run import P, bowl, die, sleep, swim
 
 
 def create_player(name: str) -> Player:
@@ -55,3 +57,34 @@ def loop(*sender_configs: tuple, n_steps: int, p: None | float | str = None) -> 
         total_duration += step_duration
 
     return total_duration
+
+
+def start(*args, **kwargs) -> None:
+    """
+    Start one or more functions as swimmers.
+
+    Args:
+        *args: One or more functions, or iterables containing functions
+        **kwargs: Optional arguments to pass to the swim function
+    """
+    for arg in args:
+        if isinstance(arg, IterableClass) and not callable(arg):
+            for func in arg:
+                swim(func, **kwargs)
+        else:
+            swim(arg, **kwargs)
+
+
+def stop(*args) -> None:
+    """
+    Stop one or more swimming functions.
+
+    Args:
+        *args: One or more functions, or iterables containing functions
+    """
+    for arg in args:
+        if isinstance(arg, IterableClass) and not callable(arg):
+            for func in arg:
+                die(func)
+        else:
+            die(arg)

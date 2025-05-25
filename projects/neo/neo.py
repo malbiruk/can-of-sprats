@@ -1,4 +1,4 @@
-from my_sardine_tools import D, State, loop
+from my_sardine_tools import D, State, loop, start, stop
 
 clock.tempo = 140
 
@@ -110,8 +110,8 @@ all = {lead, reverb, bass, hh, snare_1, snare_2, crash, tom}
 melody = {lead, reverb}
 hhh = {hh, snare_2, tom}
 
-for func in all:
-    swim(func)
+stop(all)
+start(all)
 
 # things to add:
 # 1. police siren

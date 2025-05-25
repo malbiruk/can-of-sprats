@@ -2,10 +2,32 @@
 # This script starts SuperCollider with SuperDirt and then runs Sardine.
 
 DEBUG=0
-if [[ "$1" == "-d" ]] || [[ "$1" == "--debug" ]]; then
-  DEBUG=1
-  shift # Remove the flag from arguments
-fi
+CONFIG_FILE="/home/klim/Documents/REAPER Media/sardine/common/sc_config.scd"  # Default config path
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--debug)
+      DEBUG=1
+      shift
+      ;;
+    -c|--config)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        CONFIG_FILE="$2"
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    *)
+      # Unknown option
+      echo "Unknown option: $1"
+      echo "Usage: $0 [-d|--debug] [-c|--config PATH_TO_CONFIG]"
+      exit 1
+      ;;
+  esac
+done
 
 source .venv/bin/activate
 
@@ -19,8 +41,6 @@ if [ $DEBUG -eq 1 ]; then
 else
   LOG_FILE=$(mktemp /tmp/sardine-sc-log.XXXXXX.log)
 fi
-
-CONFIG_FILE="/home/klim/Documents/REAPER Media/sardine/sc_config.scd"
 
 # Check if the config file exists
 if [ -f "$CONFIG_FILE" ]; then
@@ -39,7 +59,8 @@ if(File.exists(file)) {
 )
 EOF
 else
-  echo "Custom config not found, using default SuperDirt config"
+  echo "Warning: Config file not found at $CONFIG_FILE"
+  echo "Falling back to default SuperDirt config"
   # Fall back to the default startup
   cat > $TMP_SC_FILE << 'EOF'
 SuperDirt.start;
@@ -69,8 +90,14 @@ cleanup() {
   pkill -f scsynth
 
   # Remove the temp files
-  rm -f $TMP_SC_FILE
-  rm -f $LOG_FILE
+  if [ $DEBUG -eq 0 ]; then
+    rm -f $TMP_SC_FILE
+    rm -f $LOG_FILE
+  else
+    echo "Debug mode: Keeping temporary files:"
+    echo "- SC file: $TMP_SC_FILE"
+    echo "- Log file: $LOG_FILE"
+  fi
   exit 0
 }
 
@@ -80,9 +107,9 @@ trap cleanup EXIT INT TERM
 # Wait for SuperDirt to be ready
 echo "Waiting for SuperDirt to start..."
 
-MAX_WAIT=120  # Maximum wait time in seconds (doubled to 120)
+MAX_WAIT=60  # Maximum wait time in seconds
 WAIT_COUNTER=0
-CHECK_INTERVAL=1  # Check every second (integer value)
+CHECK_INTERVAL=1  # Check every second
 
 while [ $WAIT_COUNTER -lt $MAX_WAIT ]; do
   if grep -q "SuperDirt: listening on port 57120" $LOG_FILE; then
@@ -100,10 +127,8 @@ echo ""  # New line after dots
 
 if [ $WAIT_COUNTER -ge $MAX_WAIT ]; then
   echo "Warning: Timeout waiting for SuperDirt to start. Continuing anyway..."
+  echo "Check $LOG_FILE for any errors"
 fi
-
-# Connect SuperCollider outputs to system outputs
-# ./connect_sc_system.sh
 
 # Now start Sardine
 echo "Starting Sardine..."

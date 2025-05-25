@@ -21,7 +21,7 @@ Wanna dive in? Here's the basic flow:
     pip install -e ./my_sardine_tools
     ```
 2.  **Start Sardine:**
-    *   **Option 1: Direct Terminal:** If your editor can send text to the terminal, just run `./scripts/start_sardine.sh` in terminal. (This script makes sure SuperCollider and SuperDirt are up and running before Sardine starts. In some cases Sardine doesn't start SuperCollider it automatically, otherwise just running `sardine` might work.)
+    *   **Option 1: Direct Terminal:** If your editor can send text to the terminal, just run `./scripts/start_sardine.sh` in terminal. (This script makes sure SuperCollider and SuperDirt are up and running before Sardine starts. In some cases Sardine doesn't start SuperCollider automatically, otherwise just running `sardine` might work.)
     *   **Option 2: Client/Server:** If your editor can't send text to the terminal, use the client/server approach:
         *   Start the Sardine server: `./run_sardine.sh`
         *   Configure your editor to send selected text via the client script: `./scripts/sardine_client.sh "YOUR_SELECTED_CODE"`

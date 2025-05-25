@@ -12,7 +12,7 @@ This is my attempt to recreate the beat from Platina's "NEO" using Sardine. The 
 
 ```
 neo/
-├── README.md       # This file
+├── README.md      # This file
 ├── neo.py         # Main composition script
 ├── sc_config.scd  # SuperCollider configuration
 └── samples/       # Audio samples

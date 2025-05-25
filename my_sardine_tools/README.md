@@ -8,12 +8,12 @@ This is my personal collection of tools for making Sardine life easier. Think of
     *   `create_player()`: Create simple players without using the `@swim` decorator (same as Pa, Pb, Pc... but with custom names)
     *   `loop()`: Create temporal loops with automatic timing management
     *   `start()/stop()`: Easily manage multiple Sardine functions
-*   **State Management:** Organized parameter handling for complex compositions. This is key for keeping things sane.
+*   **State Management:** Organized parameter handling for complex compositions. This is nice for organization and allows to modify the parameters via the global scope.
     *   `State()`: Hierarchical state management with automatic parameter organization
     *   Dynamic attribute creation for nested parameter groups
 *   **Enhanced Senders:** Improved MIDI and audio routing.
-    *   `D`: Enhanced SuperDirt sender with additional features
-    *   `ZD_mono`: Monophonic MIDI sender utilities
+    *   `D`, `d`: Enhanced SuperDirt senders with additional features (real pauses for patterns specified in `n`/`midinote`)
+    *   `ZD_mono`, `zd_mono`: Enhanced Ziffers senders with sustain depending on note lengths
 
 ## Installation
 

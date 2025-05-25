@@ -20,8 +20,8 @@ s.reboot {
 	s.waitForBoot {
 		~dirt = SuperDirt(2, s);
 		~dirt.loadSoundFiles;
-		~dirt.loadSynthDefs("/home/klim/Documents/REAPER Media/sardine/common/synthdefs/");
-		~dirt.loadSoundFiles("/home/klim/Documents/REAPER Media/sardine/common/samples/*");
+		~dirt.loadSynthDefs("/home/klim/Documents/REAPER Media/can_of_sprats/common/synthdefs/");
+		~dirt.loadSoundFiles("/home/klim/Documents/REAPER Media/can_of_sprats/common/samples/*");
 		s.sync;
 		// ~dirt.start(57120, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]);
 		~dirt.start(57120, 0 ! 12);

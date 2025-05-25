@@ -2,7 +2,7 @@
 # This script starts SuperCollider with SuperDirt and then runs Sardine.
 
 DEBUG=0
-CONFIG_FILE="/home/klim/Documents/REAPER Media/sardine/common/sc_config.scd"  # Default config path
+CONFIG_FILE="/home/klim/Documents/REAPER Media/can_of_sprats/common/sc_config.scd"  # Default config path
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do

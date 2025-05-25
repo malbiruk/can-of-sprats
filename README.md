@@ -1,6 +1,8 @@
-Yo! Welcome to my Sardine playground. This is where I mess around with [Sardine](https://github.com/sardine-system/sardine), a cool Python library for making algorithmic music and live coding.
+# can of sprats
 
-Think of this repo as a collection of experiments, tools, and musical sketches. It's a work in progress, always evolving.
+Yo! Welcome to my can of sprats! This is where I mess around with [Sardine](https://github.com/Bubobubobubobubo/sardine), a cool Python library for making algorithmic music and live coding.
+
+**Why "can of sprats"?** Think of it as a collection of things packed tightly together – Sardine code, custom tools, experiments, and musical sketches, all swimming in their own little brine.
 
 ## What's Inside?
 

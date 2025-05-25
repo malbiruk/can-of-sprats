@@ -113,6 +113,7 @@ hhh = {hh, snare_2, tom}
 stop(all)
 start(all)
 
+
 # things to add:
 # 1. police siren
 # 2. choir

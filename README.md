@@ -15,7 +15,7 @@ Yo! Welcome to my can of sprats! This is where I mess around with [Sardine](http
 
 Wanna dive in? Here's the basic flow:
 
-1.  **Dependencies:** Make sure you have everything installed:
+1.  **Dependencies:** Make sure you have everything installed. [Install Sardine](https://sardine.raphaelforment.fr/installation.html), then do this:
     ```bash
     pip install -r requirements.txt
     pip install -e ./my_sardine_tools
@@ -24,17 +24,15 @@ Wanna dive in? Here's the basic flow:
     ```bash
     ./scripts/start_sardine.sh
     ```
-    (This script makes sure SuperCollider and SuperDirt are up and running before Sardine starts. Sometimes Sardine doesn't do it automatically.)
+    (This script makes sure SuperCollider and SuperDirt are up and running before Sardine starts. In some cases Sardine doesn't do it automatically, otherwise just running `sardine` might work.)
 
 3.  **Load a Project:** Sardine works as a REPL. You edit code in your editor and send it to the REPL.
 
-    *   **Option 1: Direct Terminal:** If your editor can send text to the terminal, just run `./scripts/start_sardine.sh` and send code like this:
-        ```python
-        exec(open("projects/neo/neo.py").read())
-        ```
+    *   **Option 1: Direct Terminal:** If your editor can send text to the terminal, just run `./scripts/start_sardine.sh` in terminal and send the selected code there from editor pane.
     *   **Option 2: Client/Server:** If your editor can't send text to the terminal, use the client/server approach:
         *   Start the Sardine server: `./run_sardine.sh`
         *   Configure your editor to send selected text via the client script: `./scripts/sardine_client.sh "YOUR_SELECTED_CODE"`
+    *   **Option 3: Editor extension:** For some editors extensions are available, check [here](https://sardine.raphaelforment.fr/editors.html).
 
 ## License
 

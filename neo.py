@@ -106,9 +106,18 @@ def tom(p=1, i=0, orbit=6):
     again(swim(tom), p=dur, i=i + 1)
 
 
-for func in [lead, reverb, bass, hh, snare_1, snare_2, crash, tom]:
+all = {lead, reverb, bass, hh, snare_1, snare_2, crash, tom}
+melody = {lead, reverb}
+hhh = {hh, snare_2, tom}
+
+for func in all:
     swim(func)
 
-state.show(1)
-
-silence()
+# things to add:
+# 1. police siren
+# 2. choir
+# 3. glass break
+# 4. square impact
+# 5. arp
+# 6. air horn
+# 7. mixing and mastering

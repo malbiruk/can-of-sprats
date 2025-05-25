@@ -1,11 +1,22 @@
 (
 s.reboot {
+    // Critical timing settings
+    s.options.hardwareBufferSize = 2048;
+    s.options.blockSize = 256;
+
+    // Resource allocation
 	s.options.numBuffers = 1024 * 256;
 	s.options.memSize = 8192 * 32;
-	s.options.numWireBufs = 128;
+	s.options.numWireBufs = 256;
 	s.options.maxNodes = 1024 * 32;
+
+    // Audio settings
 	s.options.numOutputBusChannels = 2;
 	s.options.numInputBusChannels = 2;
+
+	s.options.threads = 8;
+
+
 	s.waitForBoot {
 		~dirt = SuperDirt(2, s);
 		~dirt.loadSoundFiles;

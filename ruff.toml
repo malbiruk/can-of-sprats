@@ -59,6 +59,7 @@ builtins = [
     "silence", # gentle shutdown
     "panic",   # hard stop
     "swim",
+    "solo",
     "die",
     "again",
     "sleep",

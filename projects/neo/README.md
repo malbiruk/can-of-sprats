@@ -70,11 +70,11 @@ Here's a quick overview of the main parts:
 *   **Hi-hats (`hh`):**  The intricate hi-hat pattern.
 *   **Snares:**  Two different snare patterns.
 *   **Percussion:**  Crashes and tom fills.
-*   **Reverb:**  Separate reverb playing on the same channel (orbit) as lead for space.
+*   **Reverb:**  Separate reverb playing on the same channel (orbit) as `lead` for space.
 
 ## State Management
 
-I'm using the `State` class from [My Sardine Tools](../../my_sardine_tools/README.md) to keep things organized. It helps manage all the parameters for the synths and effects, and access them from the global state directly or via other swim functions.
+I'm using the `State` class from [My Sardine Tools](../../my_sardine_tools/README.md) to keep things organized. It helps manage all the parameters for the synths and effects, and access them from the global state directly or via other `swim` functions.
 
 ## Requirements
 

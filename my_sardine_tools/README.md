@@ -120,6 +120,9 @@ def kick_pattern(p=1, i=0):
         p=state.drums.kick.p
     )
     again(kick_pattern, p=duration, i=i+1)
+
+# Change any parameter on-the-fly
+state.drums.kick.p = 0.25  # will make it run twice as fast, without redefining the `kick_pattern` function 
 ```
 
 ### Enhanced Senders

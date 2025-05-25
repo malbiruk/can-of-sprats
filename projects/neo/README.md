@@ -6,7 +6,7 @@ This is my attempt to recreate the beat from Platina's "NEO" using Sardine. The 
 
 ## The Idea
 
-"NEO" is a complex track, and I wanted to see if I could break it down and rebuild it using live coding. It's a fun exercise in pattern composition, drum programming, and synth control. I chose Sardine because I wanted to explore algorithmic music creation with Python, and I ended up building my own tools ([My Sardine Tools](../my_sardine_tools/README.md)) along the way to make it easier.
+"NEO" is a complex track, and I wanted to see if I could break it down and rebuild it using live coding. It's a fun exercise in pattern composition, drum programming, and synth control. I chose Sardine because I wanted to explore algorithmic music creation with Python, and I ended up building my own tools ([My Sardine Tools](../../my_sardine_tools/README.md)) along the way to make it easier.
 
 ## Project Structure
 
@@ -25,7 +25,7 @@ neo/
 
 1.  **Start Sardine:**
 
-    You have a couple of options here. You can either use the `start_sardine.sh` script (which will directly run REPL in terminal) or run the Sardine as a server with `./run_sardine.sh`. Check the main [README](./README.md) for more details on these options.
+    You have a couple of options here. You can either use the `start_sardine.sh` script (which will directly run REPL in terminal) or run the Sardine as a server with `./run_sardine.sh`. Check the main [README](../../README.md) for more details on these options.
 
     With both scripts, make sure to use the project-specific SuperCollider config:
 
@@ -74,12 +74,12 @@ Here's a quick overview of the main parts:
 
 ## State Management
 
-I'm using the `State` class from [My Sardine Tools](../my_sardine_tools/README.md) to keep things organized. It helps manage all the parameters for the synths and effects, and access them from the global state directly or via other swim functions.
+I'm using the `State` class from [My Sardine Tools](../../my_sardine_tools/README.md) to keep things organized. It helps manage all the parameters for the synths and effects, and access them from the global state directly or via other swim functions.
 
 ## Requirements
 
 *   Sardine with SuperCollider and SuperDirt
-*   [My Sardine Tools](../my_sardine_tools/README.md)
+*   [My Sardine Tools](../../my_sardine_tools/README.md)
 *   Audio samples (in `samples/`)
 *   My custom tweak of `super808` in `../../common/synthdefs/super808.scd`
 

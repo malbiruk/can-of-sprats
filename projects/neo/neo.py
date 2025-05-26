@@ -87,7 +87,7 @@ def crash(p=1, i=0, orbit=5):
     amp = sound.replace("crash:0", "0.8").replace("crash:1", "0.6")
     state.drums.crash.init(n_steps=16, p=1, orbit=orbit, sound=sound, pan=pan, amp=amp)
     dur = loop(
-        (D, state.drums.crash.params()),
+        (D, state.drums.crash.fx | state.drums.crash.params()),
         n_steps=state.drums.crash.n_steps,
         p=state.drums.crash.p,
     )
@@ -99,7 +99,7 @@ def tom(p=1, i=0, orbit=6):
     pan = ".!24 [0.2 0.8]!2 . 0.8"
     state.drums.tom.init(n_steps=32, p=0.5, orbit=orbit, sound=sound, pan=pan, amp=0.3)
     dur = loop(
-        (D, state.drums.tom.params()),
+        (D, state.drums.tom.fx | state.drums.tom.params()),
         n_steps=state.drums.tom.n_steps,
         p=state.drums.tom.p,
     )

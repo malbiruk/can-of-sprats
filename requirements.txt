@@ -10,7 +10,6 @@ linkpython-extern==1.1.1
 markdown-it-py==3.0.0
 mdurl==0.1.2
 mido==1.3.3
-my-sardine-tools==0.1.0
 osc4py3==1.0.8
 packaging==25.0
 parsimonious==0.10.0

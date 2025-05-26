@@ -106,9 +106,11 @@ def tom(p=1, i=0, orbit=6):
     again(swim(tom), p=dur, i=i + 1)
 
 
-all = {lead, reverb, bass, hh, snare_1, snare_2, crash, tom}
+base = {bass, snare_1, crash}
 melody = {lead, reverb}
 hhh = {hh, snare_2, tom}
+
+all = base | melody | hhh
 
 stop(all)
 start(all)

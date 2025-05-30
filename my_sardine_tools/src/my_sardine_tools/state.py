@@ -34,6 +34,13 @@ class State(dict):
             self[key] = State()
         return self.get(key)
 
+    def __getitem__(self, key):
+        """Override __getitem__ to auto-create nested State objects."""
+        if key not in self:
+            # Create nested State on demand for dictionary access too
+            self[key] = State()
+        return super().__getitem__(key)
+
     def __setattr__(self, key, value):
         # Convert nested dicts to State automatically
         if isinstance(value, dict) and not isinstance(value, State):

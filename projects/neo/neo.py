@@ -1,8 +1,8 @@
-from my_sardine_tools import D, State, loop, start, stop
+from my_sardine_tools import D, State, calculate_sample_lengths, cut, loop, start, stop
 
 clock.tempo = 140
-
 state = State()
+calculate_sample_lengths("projects/neo/samples")
 
 
 def lead(p=1, i=0, orbit=0):
@@ -106,6 +106,12 @@ def tom(p=1, i=0, orbit=6):
     again(swim(tom), p=dur, i=i + 1)
 
 
+def siren(p=4, i=0, orbit=7):
+    if i < 1:
+        dur = cut("sfx:0", 16, pan="(pal [1:0;8])", orbit=orbit)
+        again(swim(siren), p=dur, i=i + 1)
+
+
 base = {bass, snare_1, crash}
 melody = {lead, reverb}
 hhh = {hh, snare_2, tom}
@@ -114,7 +120,7 @@ all = base | melody | hhh
 
 stop(all)
 start(all)
-
+start(siren)
 
 # things to add:
 # 1. police siren

@@ -44,6 +44,9 @@ def D(*args, **kwargs):
 
 
 def parse_ziff_duration(note: str) -> float | None:
+    if not note:
+        return None
+
     # Basic duration mappings (in beats)
     durations = {
         "w": 4.0,  # whole note

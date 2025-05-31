@@ -1,3 +1,4 @@
+import random
 from pathlib import Path
 from typing import Callable
 
@@ -20,7 +21,7 @@ def get_length(sample):
     return _SAMPLE_LENGTHS[sample]
 
 
-def calculate_sample_lengths(samples_dir=None, sample_families=None):
+def calculate_sample_lengths(samples_dir=None, sample_families=None) -> dict[str, float]:
     """
     Calculate the lengths of audio samples and store them in a dictionary.
 
@@ -109,10 +110,18 @@ def calculate_sample_lengths(samples_dir=None, sample_families=None):
     return sample_lengths
 
 
+def _is_pattern(value: str | None | float) -> bool:
+    """
+    Check if the value is a pattern string (e.g., "0.5 0.25").
+    """
+    return isinstance(value, str) and len(value) > 1
+
+
 def cut(
     sample: str,
     n_slices: int = 8,
     sequence: str | None = None,
+    n_steps: int | None = None,
     p: str | None = None,
     stretch: float | None = None,
     base_start: float | None = None,
@@ -127,6 +136,7 @@ def cut(
         sample: Sample name (e.g., "sfx:0")
         n_slices: Number of equal slices to divide the sample into
         sequence: Pattern of slice indices to play (0 to n_slices-1)
+        n_steps: Length of the loop
         p: Period or duration for each slice
         stretch: Stretch full sample to n_beats
         base_start: Start position of the sample (0.0 to 1.0)
@@ -138,6 +148,25 @@ def cut(
         Total duration of all slices played
     """
     sample_length = get_length(sample)
+
+    if n_steps is None:
+        if sequence is None and not _is_pattern(p):
+            n_steps = n_slices
+        else:
+            potential_patterns = (
+                p,
+                sequence,
+                speed,
+                kwargs.get("note"),
+                kwargs.get("pan"),
+                kwargs.get("amp"),
+                kwargs.get("gain"),
+                kwargs.get("shape"),
+            )
+            patterns = [pattern for pattern in potential_patterns if _is_pattern(pattern)]
+            n_steps = max(
+                len(bowl.parser.parse(str(pattern).replace("None", "."))) for pattern in patterns
+            )
 
     if base_start is None:
         base_start = 0.0
@@ -156,7 +185,7 @@ def cut(
 
     total_duration = 0
 
-    for j in range(n_slices):
+    for j in range(n_steps):
         current_slice = P(sequence, j)
         actual_speed = base_speed * (P(speed, i=j) if isinstance(speed, str) else speed or 1.0)
         if abs(actual_speed) == 0:
@@ -230,8 +259,6 @@ def granulate(
     Returns:
         Total duration
     """
-    import random
-
     total_grains = int(density * duration)
     grain_duration = duration / total_grains
 

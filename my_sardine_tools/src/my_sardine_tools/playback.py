@@ -20,7 +20,11 @@ def create_player(name: str) -> Player:
     return p
 
 
-def loop(*sender_configs: tuple, n_steps: int, p: None | float | str = None) -> float:
+def loop(
+    *sender_configs: tuple,
+    n_steps: int,
+    p: None | float | str = None,
+) -> float:
     """
     This function creates a temporal loop that plays through multiple steps of a pattern,
     handling the timing/sleep between steps automatically.

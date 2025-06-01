@@ -123,6 +123,7 @@ def _is_pattern(value: str | None | float) -> bool:
     except ValueError:
         return True
 
+
 def cut(
     sample: str,
     n_slices: int = 8,
@@ -182,7 +183,7 @@ def cut(
 
     if stretch is not None:
         target_duration = stretch * bowl.clock.beat_duration
-        base_speed = sample_length / target_duration
+        base_speed = sample_length * (base_end - base_start) / target_duration
     else:
         base_speed = 1
 

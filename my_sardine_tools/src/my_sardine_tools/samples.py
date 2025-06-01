@@ -112,10 +112,16 @@ def calculate_sample_lengths(samples_dir=None, sample_families=None) -> dict[str
 
 def _is_pattern(value: str | None | float) -> bool:
     """
-    Check if the value is a pattern string (e.g., "0.5 0.25").
+    Check if the value is a pattern string.
+    A pattern is any string that cannot be interpreted as a float.
     """
-    return isinstance(value, str) and len(value) > 1
-
+    if not isinstance(value, str):
+        return False
+    try:
+        float(value)
+        return False
+    except ValueError:
+        return True
 
 def cut(
     sample: str,

@@ -16,9 +16,6 @@ neo/
 ├── neo.py         # Main composition script
 ├── sc_config.scd  # SuperCollider configuration
 └── samples/       # Audio samples
-    ├── crash/     # Crash cymbal samples
-    ├── hh/        # Hi-hat samples
-    └── sn/        # Snare samples
 ```
 
 ## Quick Start
@@ -46,7 +43,7 @@ neo/
 
     ```python
     # Start everything
-    start(all)
+    start(base, melody, hhh)
 
     # Just the melody
     start(melody)
@@ -55,7 +52,7 @@ neo/
     start(hhh)
 
     # Silence!
-    stop(all)
+    stop(base, melody, hhh)
     ```
 
 ## Key Elements

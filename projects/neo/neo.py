@@ -1,5 +1,4 @@
 import subprocess
-import time
 from pathlib import Path
 
 from my_sardine_tools import D, State, calculate_sample_lengths, cut, loop, start, stop
@@ -256,10 +255,6 @@ def open_karaoke_window():
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    time.sleep(1)
-    subprocess.run(["swaymsg", '[app_id="firefox"] floating enable'])
-    subprocess.run(["swaymsg", '[app_id="firefox"] fullscreen toggle'])
-    subprocess.run(["swaymsg", '[app_id="firefox"] border pixel 1'])
 
 
 def karaoke(p=1, i=0):

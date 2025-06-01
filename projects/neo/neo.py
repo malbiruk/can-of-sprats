@@ -5,11 +5,13 @@ state = State()
 calculate_sample_lengths("projects/neo/samples")
 
 
+# MELODY
 def lead(p=1, i=0, orbit=0):
     n = "E3 . E3 C4 . F3 . A3"
     amp = 0.025
     state.lead.init(n_steps=16, p=0.5, orbit=orbit, n=n, sustain=0.25)
     state.lead.fx.init(hpf=400, shape=0.5, tremolodepth=0.6, tremolorate=32)
+    state.lead.fx.init(delaytime=0.5, delayfeedback=0.25, delay=0.25)
     state.lead.saw.init(sound="supersaw", voice=0.01, amp=amp + 0.05, cutoff=5000)
     state.lead.square.init(sound="supersquare", amp=amp)
     dur = loop(
@@ -22,7 +24,7 @@ def lead(p=1, i=0, orbit=0):
 
 
 def reverb(p=1, i=0, orbit=0):
-    state.reverb.init(n_steps=16, p=0.5, orbit=orbit, pan="0 1", room=0.75, size=0.9, dry=0.75)
+    state.reverb.init(n_steps=8, p=1, orbit=orbit, pan="0 1", room=0.75, size=0.9, dry=0.75)
     dur = loop(
         (D, dict(sound="bd", amp=0) | state.reverb.params()),
         n_steps=state.reverb.n_steps,
@@ -31,6 +33,35 @@ def reverb(p=1, i=0, orbit=0):
     again(swim(reverb), p=dur, i=i + 1)
 
 
+def choir(p=1, i=0, orbit=10):
+    n = "C4 F3 E3 C3 F3 E3"
+    p = "2 2 4 2 2 4"
+    state.choir.init(n_steps=6, n=n, p=p, orbit=orbit)
+    state.choir.init(sound="choir", amp=0.2, pan=0.4, sustain=2, legato=1.5)
+    state.choir.fx.init(hpf=300, octersub=0.25, octersubsub=0.25, vowel="o", lpf=1000)
+    state.fx.choir.init(size=0.5, room=0.5, dry=0.75)
+    dur = loop(
+        (D, state.choir.fx | state.choir.params()),
+        n_steps=state.choir.n_steps,
+        p=state.choir.p,
+    )
+    again(swim(choir), p=dur, i=i + 1)
+
+
+def arp(p=1, i=0, orbit=11):
+    n = "[C2 E2 F2 E2]!2 .!8 [C2 F2 G2 A2]!2 .!8 [C2 F2 G2 F2]!2 .!8 [C2 E2 E2 F2]!2 .!8"
+    state.arp.init(n_steps=64, p=0.25, orbit=orbit, amp=0.03)
+    state.arp.init(sound="superreese", n=n, sustain=0.1)
+    state.arp.fx.init(hpf=500, delay=0.25, delaytime=0.5, lpf=1000, shape=0.9)
+    dur = loop(
+        (D, state.arp.fx | state.arp.params()),
+        n_steps=state.arp.n_steps,
+        p=state.arp.p,
+    )
+    again(swim(arp), p=dur, i=i + 1)
+
+
+# RHYTHM
 def bass(p=1, i=0, orbit=1):
     state.bass.init(n_steps=8, p="[3 2 3!2 2 1.5 1 0.5]")
     n = "D0!2 F0 C0!4 F0"
@@ -106,27 +137,65 @@ def tom(p=1, i=0, orbit=6):
     again(swim(tom), p=dur, i=i + 1)
 
 
-def siren(p=4, i=0, orbit=7):
-    if i < 1:
-        dur = cut("sfx:0", 16, pan="(pal [1:0;8])", orbit=orbit)
-        again(swim(siren), p=dur, i=i + 1)
+# SFX
+def siren(p=1, i=0, orbit=7):
+    cut("sfx:0", 16, pan="(pal [1:0;8])", amp=0.3, orbit=orbit)
+
+
+def airhorn(p=1, i=0, orbit=10):
+    params = dict(sound="[sfx:2 .]!3", pan="0.8!6 0.2!6", orbit=orbit, amp="[0.05 0.025]!!6")
+    fx = dict(hpf=600, delay=0.5, delaytime=1.5, delayfeedback=0.05)
+    loop(
+        (D, params | fx),
+        n_steps=12,
+        p="[0.75 0.25 0.25 0.25 1.5 1]!4",
+    )
+
+
+def glass(p=1, i=0, orbit=8):
+    D("sfx:1", pan=0.65, amp=0.15, room=0.75, size=0.9, dry=0.25, orbit=orbit)
+
+
+def square_impact(p=1, i=0, orbit=9):
+    p = "[0.5 0.25 0.25 0.5 0.5 0.75 0.25 0.75 0.25]"
+    sound = "[. 1 . 1 . 1 . 1 .] * supersquare"
+    params = dict(orbit=orbit, sound=sound, n="A#4", amp=0.05, cut=1, sustain=p + "* 0.5")
+    fx = dict(pan=0.4, hpf=400, squiz=1.25, lpf=2500, tremolodepth=0.6, tremolorate=32, voice=0.5)
+    loop(
+        (D, params | fx),
+        n_steps=8,
+        p=p,
+    )
 
 
 base = {bass, snare_1, crash}
 melody = {lead, reverb}
 hhh = {hh, snare_2, tom}
 
-all = base | melody | hhh
 
-stop(all)
-start(all)
-start(siren)
+# ARRANGEMENT
+start(base, melody, hhh, siren)  # 32 beats
 
-# things to add:
-# 1. police siren
-# 2. choir
-# 3. glass break
-# 4. square impact
-# 5. arp
-# 6. air horn
-# 7. mixing and mastering
+start(glass, square_impact)  # 32 beats
+
+start(airhorn, choir)  # 32 beats
+
+stop(melody, tom)
+start(arp)  # 32 beats
+
+start(melody, glass, tom)
+stop(choir)  # 32 beats
+
+start(choir)
+stop(hhh, arp)  # 32 beats
+
+start(airhorn, glass, hhh)
+stop(choir)  # 32 beats
+
+start(choir)  # 16 beats
+
+start(airhorn)  # 16 beats
+
+stop(hhh, snare_1, choir, crash)  # 32 beats
+
+silence()

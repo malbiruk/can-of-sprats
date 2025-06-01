@@ -90,7 +90,7 @@ def hh(p=1, i=0, orbit=2):
 
 
 def snare_1(p=1, i=0, orbit=3):
-    state.drums.sn1.init(n_steps=2, p=2, orbit=orbit, sound=". sn:1")
+    state.drums.sn1.init(n_steps=8, p=2, orbit=orbit, sound=". sn:1")
     state.drums.sn1.fx.init(shape=0.5)
     dur = loop(
         (D, state.drums.sn1.fx | state.drums.sn1.params()),
@@ -173,29 +173,56 @@ melody = {lead, reverb}
 hhh = {hh, snare_2, tom}
 
 
-# ARRANGEMENT
-start(base, melody, hhh, siren)  # 32 beats
+# AUTOMATIC ARRANGEMENT
+def arrangement(p=1, i=0):
+    steps = [
+        (32, lambda: start(base, melody, hhh, siren)),
+        (32, lambda: start(glass, square_impact)),
+        (32, lambda: start(airhorn, choir)),
+        (32, lambda: (start(arp), stop(melody, tom))),
+        (32, lambda: (start(melody, glass, tom), stop(choir))),
+        (32, lambda: (start(choir), stop(hhh, arp))),
+        (32, lambda: (start(airhorn, glass, hhh), stop(choir))),
+        (16, lambda: start(choir)),
+        (16, lambda: start(airhorn)),
+        (32, lambda: stop(hhh, snare_1, choir, crash)),
+        (0, lambda: silence()),
+    ]
 
-start(glass, square_impact)  # 32 beats
+    if i < len(steps):
+        beats, action = steps[i]
+        action()
+        if beats > 0:
+            again(swim(arrangement), p=beats, i=i + 1)
 
-start(airhorn, choir)  # 32 beats
 
-stop(melody, tom)
-start(arp)  # 32 beats
+start(arrangement)
 
-start(melody, glass, tom)
-stop(choir)  # 32 beats
 
-start(choir)
-stop(hhh, arp)  # 32 beats
 
-start(airhorn, glass, hhh)
-stop(choir)  # 32 beats
+# # MANUAL ARRANGEMENT
+# start(base, melody, hhh, siren)  # 32 beats
 
-start(choir)  # 16 beats
+# start(glass, square_impact)  # 32 beats
 
-start(airhorn)  # 16 beats
+# start(airhorn, choir)  # 32 beats
 
-stop(hhh, snare_1, choir, crash)  # 32 beats
+# start(arp)
+# stop(melody, tom)  # 32 beats
 
-silence()
+# start(melody, glass, tom)
+# stop(choir)  # 32 beats
+
+# start(choir)
+# stop(hhh, arp)  # 32 beats
+
+# start(airhorn, glass, hhh)
+# stop(choir)  # 32 beats
+
+# start(choir)  # 16 beats
+
+# start(airhorn)  # 16 beats
+
+# stop(hhh, snare_1, choir, crash)  # 32 beats
+
+# silence()

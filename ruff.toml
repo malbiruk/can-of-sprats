@@ -64,6 +64,7 @@ builtins = [
     "again",
     "sleep",
     "V",       # Amphibian variables
+    "sc",      # send message to SuperCollider
     # Sardine patterns senders
     "d",  # SuperDirt - samples and synthesizers (Player)
     "D",  # SuperDirt - samples and synthesizers (@swim)

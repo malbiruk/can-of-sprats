@@ -68,8 +68,8 @@ def arp(p=1, i=0, orbit=2):
 def bass(p=1, i=0, orbit=3):
     state.bass.init(n_steps=8, p="[3 2 3!2 2 1.5 1 0.5]")
     n = "D0!2 F0 C0!4 F0"
-    state.bass.init(orbit=orbit, sound="super808", n=n, sustain=1.5, cut=1, amp=0.3)
-    state.bass.fx.init(shape=0.85, lpf=100)
+    state.bass.init(orbit=orbit, sound="super808", n=n, sustain=2, cut=1, amp=0.3)
+    state.bass.fx.init(shape=0.9, lpf=120)
     dur = loop(
         (D, state.bass.fx | state.bass.params()),
         n_steps=state.bass.n_steps,

@@ -11,6 +11,7 @@ s.reboot {
 	s.options.maxNodes = 1024 * 32;
 
     // Audio settings
+	// s.options.numOutputBusChannels = 24;
 	s.options.numOutputBusChannels = 2;
 	s.options.numInputBusChannels = 2;
 

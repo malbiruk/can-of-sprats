@@ -142,7 +142,7 @@ def tom(p=1, i=0, orbit=8):
 
 # SFX
 def siren(p=1, i=0, orbit=9):
-    cut("sfx:0", 16, pan="(pal [1:0;8])", amp=0.3, orbit=orbit)
+    cut("sfx:0", 16, pan="(pal [1:0;8])", amp=0.15, room=0.7, size=0.7, dry=0.5, orbit=orbit)
 
 
 def airhorn(p=1, i=0, orbit=9):
@@ -189,7 +189,7 @@ def arrangement(p=1, i=0, shift=0):
         return globals()["start"](*args, snap=shift, **kwargs)
 
     steps = [
-        (lambda: start(base, melody, hhh, siren), 16),
+        (lambda: start(base, melody, hhh, siren), 32),
         (lambda: start(glass, square_impact), 32),
         (lambda: start(airhorn, choir), 32),
         (lambda: (start(arp), stop(melody, tom)), 32),
@@ -262,7 +262,7 @@ def open_karaoke_window():
 
 def karaoke(p=1, i=0):
     lyrics = [
-        ("", 40 - 16),
+        ("", 40),
         ("НАСТОЯЩИЙ БЕЛЫЙ С УЛИЦ", 4),
         ("ИГРА ПОШЛА ПО ПОЛНОЙ", 4),
         ("СО МНОЮ ЗЛЫЕ СУКИ", 4),
@@ -322,5 +322,9 @@ def karaoke(p=1, i=0):
 # PERFORMANCE
 # start(mic)
 # open_karaoke_window()
+
+# start(melody)
+# start(hhh, snare_1, crash)
+# stop(base, melody, hhh)
 # start(karaoke, snap=3)
 start(arrangement, shift=3)

@@ -1,21 +1,21 @@
 (
 s.reboot {
     // Critical timing settings
-    s.options.hardwareBufferSize = 2048;
-    s.options.blockSize = 256;
+    s.options.hardwareBufferSize = 1024;
+    s.options.blockSize = 128;
 
     // Resource allocation
-	s.options.numBuffers = 1024 * 256;
+	s.options.numBuffers = 1024 * 128;
 	s.options.memSize = 8192 * 32;
 	s.options.numWireBufs = 256;
-	s.options.maxNodes = 1024 * 32;
+	s.options.maxNodes = 1024 * 16;
 
     // Audio settings
 	// s.options.numOutputBusChannels = 24;
 	s.options.numOutputBusChannels = 2;
 	s.options.numInputBusChannels = 2;
 
-	s.options.threads = 8;
+	s.options.threads = 6;
 
 
 	s.waitForBoot {
@@ -34,6 +34,6 @@ s.reboot {
 			~d10 = ~dirt.orbits[9]; ~d11 = ~dirt.orbits[10]; ~d12 = ~dirt.orbits[11];
 		);
 	};
-	s.latency = 0.3;
+	s.latency = 0.2;
 };
 )

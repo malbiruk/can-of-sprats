@@ -11,11 +11,11 @@ calculate_sample_lengths("projects/neo/samples")
 # MELODY
 def lead(p=1, i=0, orbit=0):
     n = "E3 . E3 C4 . F3 . A3"
-    amp = 0.025
-    state.lead.init(n_steps=16, p=0.5, orbit=orbit, n=n, sustain=0.25)
+    amp = 0.025 * 0.6
+    state.lead.init(n_steps=32, p=0.5, orbit=orbit, n=n, sustain=0.25)
     state.lead.fx.init(hpf=400, shape=0.5, tremolodepth=0.6, tremolorate=32)
     state.lead.fx.init(delaytime=0.5, delayfeedback=0.25, delay=0.25)
-    state.lead.saw.init(sound="supersaw", voice=0.01, amp=amp + 0.05, cutoff=5000)
+    state.lead.saw.init(sound="supersaw", voice=0.01, amp=amp * 3, cutoff=5000)
     state.lead.square.init(sound="supersquare", amp=amp)
     dur = loop(
         (D, state.lead.params() | state.lead.fx | state.lead.saw),
@@ -52,10 +52,10 @@ def choir(p=1, i=0, orbit=1):
 
 
 def arp(p=1, i=0, orbit=2):
-    n = "[C2 E2 F2 E2]!2 .!8 [C2 F2 G2 A2]!2 .!8 [C2 F2 G2 F2]!2 .!8 [C2 E2 E2 F2]!2 .!8"
+    n = "[D1 A1 E2 F2]!2 .!8 [F1 C2 G2 A2]!2 .!8 [C1 G1 D2 E2]!2 .!8 [F0 C1 G1 A1]!2 .!8"
     state.arp.init(n_steps=64, p=0.25, orbit=orbit, amp=0.03)
-    state.arp.init(sound="superreese", n=n, sustain=0.1)
-    state.arp.fx.init(hpf=500, delay=0.25, delaytime=0.5, lpf=1000, shape=0.9)
+    state.arp.init(sound="supersaw", voice=0.75, n=n, sustain=0.1)
+    state.arp.fx.init(hpf=900, delay=0.25, delaytime=0.5, lpf=1000, shape=0.9)
     dur = loop(
         (D, state.arp.fx | state.arp.params()),
         n_steps=state.arp.n_steps,
@@ -79,7 +79,7 @@ def bass(p=1, i=0, orbit=3):
 
 
 def hh(p=1, i=0, orbit=4):
-    state.drums.hh.init(n_steps=32, p=0.25)
+    state.drums.hh.init(n_steps=64, p=0.25)
     sound = "[1!11 [. 1]!3 1!12 .!3] * hh"
     state.drums.hh.init(orbit=orbit, sound=sound, gain=0.55, sustain=0.1)
     state.drums.hh.fx.init(shape=0.75, hpf=4000)
@@ -184,9 +184,12 @@ melody = {lead, reverb}
 hhh = {hh, snare_2, tom}
 
 
-def arrangement(p=1, i=0):
+def arrangement(p=1, i=0, shift=0):
+    def start(*args, **kwargs):
+        return globals()["start"](*args, snap=shift, **kwargs)
+
     steps = [
-        (lambda: start(base, melody, hhh, siren), 32),
+        (lambda: start(base, melody, hhh, siren), 16),
         (lambda: start(glass, square_impact), 32),
         (lambda: start(airhorn, choir), 32),
         (lambda: (start(arp), stop(melody, tom)), 32),
@@ -203,7 +206,7 @@ def arrangement(p=1, i=0):
         action, sleep_for = steps[i]
         action()
         if sleep_for > 0:
-            again(swim(arrangement), p=sleep_for, i=i + 1)
+            again(swim(arrangement), p=sleep_for, i=i + 1, shift=shift)
 
 
 # KARAOKE
@@ -259,7 +262,7 @@ def open_karaoke_window():
 
 def karaoke(p=1, i=0):
     lyrics = [
-        ("", 40),
+        ("", 40 - 16),
         ("НАСТОЯЩИЙ БЕЛЫЙ С УЛИЦ", 4),
         ("ИГРА ПОШЛА ПО ПОЛНОЙ", 4),
         ("СО МНОЮ ЗЛЫЕ СУКИ", 4),
@@ -318,33 +321,6 @@ def karaoke(p=1, i=0):
 
 # PERFORMANCE
 # start(mic)
-start(arrangement)
-open_karaoke_window()
-start(karaoke)
-
-# # MANUAL ARRANGEMENT
-# start(base, melody, hhh, siren)  # 32 beats
-
-# start(glass, square_impact)  # 32 beats
-
-# start(airhorn, choir)  # 32 beats
-
-# start(arp)
-# stop(melody, tom)  # 32 beats
-
-# start(melody, glass, tom)
-# stop(choir)  # 32 beats
-
-# start(choir)
-# stop(hhh, arp)  # 32 beats
-
-# start(airhorn, glass, hhh)
-# stop(choir)  # 32 beats
-
-# start(choir)  # 16 beats
-
-# start(airhorn)  # 16 beats
-
-# stop(hhh, snare_1, choir, crash)  # 32 beats
-
-# silence()
+# open_karaoke_window()
+# start(karaoke, snap=3)
+start(arrangement, shift=3)

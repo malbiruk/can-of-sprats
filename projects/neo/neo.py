@@ -159,7 +159,7 @@ def glass(p=1, i=0, orbit=10):
     D("sfx:1", pan=0.65, amp=0.15, room=0.75, size=0.9, dry=0.25, orbit=orbit)
 
 
-def square_impact(p=1, i=0, orbit=11):
+def square_impact(p=1, i=0, orbit=9):
     p = "[0.5 0.25 0.25 0.5 0.5 0.75 0.25 0.75 0.25]"
     sound = "[. 1 . 1 . 1 . 1 .] * supersquare"
     params = dict(orbit=orbit, sound=sound, n="A#4", amp=0.05, cut=1, sustain=p + "* 0.5")
@@ -189,8 +189,9 @@ def arrangement(p=1, i=0, shift=0):
         return globals()["start"](*args, snap=shift, **kwargs)
 
     steps = [
-        (lambda: start(base, melody, hhh, siren), 32),
-        (lambda: start(glass, square_impact), 32),
+        # (lambda: start(base, melody, hhh, siren), 32),
+        (lambda: start(base, melody, hhh, glass, square_impact), 32),
+        # (lambda: start(glass, square_impact), 32),
         (lambda: start(airhorn, choir), 32),
         (lambda: (start(arp), stop(melody, tom)), 32),
         (lambda: (start(melody, glass, tom), stop(choir)), 32),
@@ -262,7 +263,8 @@ def open_karaoke_window():
 
 def karaoke(p=1, i=0):
     lyrics = [
-        ("", 40),
+        # ("", 32),
+        ("", 8),
         ("НАСТОЯЩИЙ БЕЛЫЙ С УЛИЦ", 4),
         ("ИГРА ПОШЛА ПО ПОЛНОЙ", 4),
         ("СО МНОЮ ЗЛЫЕ СУКИ", 4),
@@ -320,11 +322,21 @@ def karaoke(p=1, i=0):
 
 
 # PERFORMANCE
-# start(mic)
-# open_karaoke_window()
+open_karaoke_window()
 
-# start(melody)
-# start(hhh, snare_1, crash)
-# stop(base, melody, hhh)
-# start(karaoke, snap=3)
+start(base)
+start(melody)
+start(hhh)
+start(siren)
+
+stop(melody)
+start(choir)
+
+stop(choir)
+start(arp)
+
+stop(arp, base, melody, hhh)
+start(karaoke, snap=3)
 start(arrangement, shift=3)
+
+silence()

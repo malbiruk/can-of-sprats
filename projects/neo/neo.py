@@ -178,20 +178,20 @@ def mic(p=1, i=0, orbit=12):
     again(swim(mic), p=1, i=i + 1)
 
 
-# ARRANGEMENT
-base = {bass, snare_1, crash}
 melody = {lead, reverb}
+base = {bass, snare_1, crash}
 hhh = {hh, snare_2, tom}
 
 
+# ARRANGEMENT
 def arrangement(p=1, i=0, shift=0):
     def start(*args, **kwargs):
         return globals()["start"](*args, snap=shift, **kwargs)
 
     steps = [
-        # (lambda: start(base, melody, hhh, siren), 32),
-        (lambda: start(base, melody, hhh, glass, square_impact), 32),
-        # (lambda: start(glass, square_impact), 32),
+        (lambda: start(base, melody, hhh, siren), 32),
+        # (lambda: start(base, melody, hhh, glass, square_impact), 32),
+        (lambda: start(glass, square_impact), 32),
         (lambda: start(airhorn, choir), 32),
         (lambda: (start(arp), stop(melody, tom)), 32),
         (lambda: (start(melody, glass, tom), stop(choir)), 32),
@@ -263,7 +263,7 @@ def open_karaoke_window():
 
 def karaoke(p=1, i=0):
     lyrics = [
-        # ("", 32),
+        ("", 32),
         ("", 8),
         ("НАСТОЯЩИЙ БЕЛЫЙ С УЛИЦ", 4),
         ("ИГРА ПОШЛА ПО ПОЛНОЙ", 4),
@@ -276,7 +276,7 @@ def karaoke(p=1, i=0):
         ("НО МОИ СУКИ ПИЗЖЕ", 4),
         ("ОНИ СО МНОЙ БЕСПЛАТНО", 4),
         ("А НА НОГАХ MARGIELA", 4),
-        ("И ЗОЛОТЫЕ GUCCI", 4),
+        ("И ЗОЛОТЫЕ ГУСИ", 4),
         ("ОНА НА БЕЛОМ СВЭГЕ", 4),
         ("ЗАБРАЛ ИХ С УНИВЕРА", 4),
         ("Я САМ ХОДИЛ КОГДА-ТО", 4),
@@ -322,10 +322,10 @@ def karaoke(p=1, i=0):
 
 
 # PERFORMANCE
-open_karaoke_window()
+# open_karaoke_window()
 
-start(base)
 start(melody)
+start(base)
 start(hhh)
 start(siren)
 
@@ -336,6 +336,7 @@ stop(choir)
 start(arp)
 
 stop(arp, base, melody, hhh)
+
 start(karaoke, snap=3)
 start(arrangement, shift=3)
 

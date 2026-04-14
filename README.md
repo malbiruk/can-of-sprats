@@ -2,12 +2,12 @@
 
 Yo! Welcome to my can of sprats! This is where I mess around with [Sardine](https://github.com/Bubobubobubobubo/sardine), a cool Python library for making algorithmic music and live coding.
 
-**Why "can of sprats"?** Think of it as a collection of things packed tightly together – Sardine code, custom tools, experiments, and musical sketches, all swimming in their own little brine.
+**Why "can of sprats"?** It is a collection of things packed tightly together – Sardine code, custom tools, experiments, and musical sketches, all swimming in their own little brine.
 
 ## What's Inside?
 
 *   **Projects:** These are actual musical pieces or recreations. Right now, there's a recreation of Platina's "NEO" beat. Check it out: [NEO Beat Recreation](./projects/neo/README.md)
-*   **My Sardine Tools:** A custom Python package with utilities to make Sardine even more fun. Think of it as my personal toolbox. More details here: [My Sardine Tools](./my_sardine_tools/README.md)
+*   **My Sardine Tools:** A custom Python package with utilities -- my personal toolbox. More details here: [My Sardine Tools](./my_sardine_tools/README.md)
 *   **Scripts:** Little helpers for setting things up and connecting stuff.
 *   **Common:** Shared resources and configurations.
 
